@@ -1,4 +1,4 @@
-/** Server for bank.ly. */
+/** Server for bankly. */
 
 
 const app = require("./app");

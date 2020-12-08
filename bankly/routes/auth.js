@@ -19,7 +19,7 @@ const createTokenForUser = require('../helpers/createToken');
 router.post('/register', async function(req, res, next) {
   try {
     const { username, password, first_name, last_name, email, phone } = req.body;
-    let user = await User.register({username, password, first_name, last_name, email, phone});
+    let user = await User.register(username, password, first_name, last_name, email, phone);
     const token = createTokenForUser(username, user.admin);
     return res.status(201).json({ token });
   } catch (err) {

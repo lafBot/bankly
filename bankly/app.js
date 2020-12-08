@@ -3,7 +3,8 @@
 const express = require('express');
 const app = express();
 const ExpressError = require("./helpers/expressError");
-
+const morgan = require("morgan");
+app.use(morgan("combined"));
 
 app.use(express.json());
 
@@ -26,13 +27,12 @@ app.use(function(req, res, next) {
 
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
+  console.error(err.stack);
 
   return res.json({
     status: err.status,
     message: err.message
   });
 });
-
-module.exports = app;
 
 module.exports = app;

@@ -8,7 +8,7 @@ class User {
 
 /** Register user with data. Returns new user data. */
 
-  static async register({username, password, first_name, last_name, email, phone}) {
+  static async register(username, password, first_name, last_name, email, phone) {
     const duplicateCheck = await db.query(
       `SELECT username 
         FROM users 
@@ -65,11 +65,13 @@ class User {
     );
 
     const user = result.rows[0];
+    let pass = await bcrypt.compare(password, user.password)
+    // debugger;
 
-    if (user && (await bcrypt.compare(password, user.password))) {
-      return user;
-    } else {
+    if (!user || !pass) {
       throw new ExpressError('Cannot authenticate', 401);
+    } else {
+      return user;
     }
   }
 
