@@ -54,8 +54,7 @@ function authUser(req, res, next) {
     }
     return next();
   } catch (err) {
-    err.status = 401;
-    return next(err);
+    return next('Unauthorized attempt', 401);
   }
 } // end
 

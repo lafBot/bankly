@@ -66,10 +66,10 @@ class User {
 
     const user = result.rows[0];
     let pass = await bcrypt.compare(password, user.password)
-    // debugger;
 
     if (!user || !pass) {
-      throw new ExpressError('Cannot authenticate', 401);
+      return next('Cannot authenticate', 401)
+      // throw new ExpressError('Cannot authenticate', 401);
     } else {
       return user;
     }
@@ -115,7 +115,7 @@ class User {
     const user = result.rows[0];
 
     if (!user) {
-      new ExpressError('No such user', 404);
+      throw new ExpressError('No such user', 404);
     }
 
     return user;
