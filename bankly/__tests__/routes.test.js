@@ -137,6 +137,15 @@ describe("GET /users/[username]", function() {
       phone: "phone1"
     });
   });
+
+  // Fix 5:
+  test("should deny access if token is invalid", async function() {
+    const response = await request(app)
+      .get("/users/u1")
+      .send({ _token: "invalidtoken" });
+    
+    expect(response.statusCode).toBe(401);
+  });
 });
 
 describe("PATCH /users/[username]", function() {

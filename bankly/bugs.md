@@ -48,7 +48,7 @@ let user = await User.authenticate(username, password);
 **Fix:**
 /middleware/auth.js
 ```javascript
-  let payload = jwt.verify(token);
+  let payload = jwt.verify(token, SECRET_KEY);
 
   if (!payload) {
     throw Error();
@@ -62,3 +62,14 @@ let user = await User.authenticate(username, password);
 ```
 
 *and added testing to prevent future error:*
+
+/__tests__/auth.test.js
+```javascript
+    test("should deny access if token is invalid", async function() {
+    const response = await request(app)
+      .get("/users/u1")
+      .send({ _token: "invalidtoken" });
+    
+    expect(response.statusCode).toBe(401);
+  });
+```

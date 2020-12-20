@@ -51,7 +51,7 @@ function authUser(req, res, next) {
 
     // Fix 5:
     if (token) {
-      let payload = jwt.verify(token);
+      let payload = jwt.verify(token, SECRET_KEY);
 
       if (!payload) {
         throw Error();
