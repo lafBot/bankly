@@ -91,7 +91,7 @@ describe("POST /auth/login", function() {
     expect(admin).toBe(false);
   });
 
-  // fix #4
+  // Fix 4:
   test("should reject incorrect username/password log in attempt", async function() {
     const response = await request(app)
       .post("/auth/login")
@@ -100,7 +100,6 @@ describe("POST /auth/login", function() {
         password: "incorrectpwd1"
       });
     expect(response.statusCode).toBe(401);
-    // expect(response.body).toEqual({ token: expect.any(String) });
   });
 });
 

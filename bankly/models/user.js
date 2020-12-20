@@ -68,8 +68,7 @@ class User {
     let pass = await bcrypt.compare(password, user.password)
 
     if (!user || !pass) {
-      return next('Cannot authenticate', 401)
-      // throw new ExpressError('Cannot authenticate', 401);
+      throw new ExpressError('Cannot authenticate', 401);
     } else {
       return user;
     }
